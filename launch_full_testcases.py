@@ -73,7 +73,7 @@ def run_command_and_check_log(directory, command):
     try:
         print(f"Changing directory to: {directory}")
         full_directory = os.path.abspath(os.path.join(script_dir, directory))  # Convert relative to absolute
-        os.chdir(full_directory)
+        os.chdir(os.path.dirname(full_directory))
     except FileNotFoundError:
         print(f"Directory {full_directory} not found.")
         return False, None, f"Directory {full_directory} not found."
@@ -160,6 +160,7 @@ for root, dirs, files in os.walk(testcases_dir, topdown=True):
     if not dirs:
         leaf_dirs.append(root)
 
+timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M")
 for mode in ["rag"]:
     for llm_model in ["llama-3.1-8b-instant"]:
         for top_k_retrieve in [5]:
@@ -168,13 +169,8 @@ for mode in ["rag"]:
                 log_file = os.path.join(subdir_path, vpr_filename)
                 embedding_model_safe = embedding_model.replace("/", "_")
                 help_name = input_help.split('/')[1].strip(".txt")
-                llm_output_csv = f"output/llm_seed_{seed}_temp_{temperature}_tokens_{max_tokens}_errors_{error_lines}_mode_{mode}_llm_{llm_model}_embed_{embedding_model_safe}_topk_{top_k_retrieve}_{help_name}.csv"
-                vpr_output_csv = f"output/vpr_seed_{seed}_temp_{temperature}_tokens_{max_tokens}_errors_{error_lines}_mode_{mode}_llm_{llm_model}_embed_{embedding_model_safe}_topk_{top_k_retrieve}_{help_name}.csv"
-
-                # Combine the timestamp and filename
-                timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M")
-                llm_output_csv = f"{timestamp}_{llm_output_csv}"
-                vpr_output_csv = f"{timestamp}_{vpr_output_csv}"
+                llm_output_csv = f"output/llm_{timestamp}_seed_{seed}_temp_{temperature}_tokens_{max_tokens}_errors_{error_lines}_mode_{mode}_llm_{llm_model}_embed_{embedding_model_safe}_topk_{top_k_retrieve}_{help_name}.csv"
+                vpr_output_csv = f"output/vpr_{timestamp}_seed_{seed}_temp_{temperature}_tokens_{max_tokens}_errors_{error_lines}_mode_{mode}_llm_{llm_model}_embed_{embedding_model_safe}_topk_{top_k_retrieve}_{help_name}.csv"
 
                 other_args = f"{input_help} groq {llm_model} {api_token} {llm_output_csv} --seed {seed} --temperature {temperature} --max-tokens {max_tokens} --error-lines {error_lines} --mode {mode} --embedding-model {embedding_model} --top-k-retrieve {top_k_retrieve}"
                    
