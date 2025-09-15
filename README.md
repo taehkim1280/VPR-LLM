@@ -23,14 +23,6 @@ To contribure a testcase that you faced, please open a pull request adding the t
 
 install dependencies through venv.
 
-windows:
-- `python3 -m venv venv`
-- `.\venv\Scripts\Activate.ps1` for powershell
-- `pip install -r requirements.txt` ignore errors
-- `pip install -r requirementswindows.txt`
-
-- `deactivate`
-
 linux:
 - `python3 -m venv venv`
 - `source .venv/bin/activate`
@@ -40,4 +32,8 @@ linux:
 
 add token to .env file
 - `API_TOKEN="..."`
+
+Install VTR
+- need to run make before vpr/vpr command will work
+- also need to add system path VTR_HOME = path/to/vtr/
 
