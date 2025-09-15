@@ -3,14 +3,22 @@ import subprocess
 import csv
 import re 
 import pandas as pd
+from dotenv import load_dotenv
+import datetime
 
 from vpr_llm import CommandModificationApp
+
 
 # Base command parameters
 script = "python vpr_llm.py"
 testcases_dir = "testcases/"
 vpr_filename = "error.log"
-api_token = ""
+
+load_dotenv()
+api_token = os.getenv("API_TOKEN")
+# Check if the token was loaded
+if not api_token:
+    raise ValueError("No API token found. Please check your .env file.")
 
 seed = 1
 temperature = 0.5
@@ -163,7 +171,12 @@ for mode in ["rag"]:
                 llm_output_csv = f"output/llm_seed_{seed}_temp_{temperature}_tokens_{max_tokens}_errors_{error_lines}_mode_{mode}_llm_{llm_model}_embed_{embedding_model_safe}_topk_{top_k_retrieve}_{help_name}.csv"
                 vpr_output_csv = f"output/vpr_seed_{seed}_temp_{temperature}_tokens_{max_tokens}_errors_{error_lines}_mode_{mode}_llm_{llm_model}_embed_{embedding_model_safe}_topk_{top_k_retrieve}_{help_name}.csv"
 
-                other_args = f"{input_help} groq {llm_model}  {api_token} {llm_output_csv} --seed {seed} --temperature {temperature} --max-tokens {max_tokens} --error-lines {error_lines} --mode {mode} --embedding-model {embedding_model} --top-k-retrieve {top_k_retrieve}"
+                # Combine the timestamp and filename
+                timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M")
+                llm_output_csv = f"{timestamp}_{llm_output_csv}"
+                vpr_output_csv = f"{timestamp}_{vpr_output_csv}"
+
+                other_args = f"{input_help} groq {llm_model} {api_token} {llm_output_csv} --seed {seed} --temperature {temperature} --max-tokens {max_tokens} --error-lines {error_lines} --mode {mode} --embedding-model {embedding_model} --top-k-retrieve {top_k_retrieve}"
                    
                 if os.path.isdir(subdir_path) and os.path.isfile(log_file):
                     command = f"{script} {log_file} {other_args}"

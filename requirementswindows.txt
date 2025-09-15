@@ -1,0 +1,8 @@
+pandas
+openai
+groq
+deepseek
+faiss-cpu
+sentence-transformers
+tiktoken
+python-dotenv

@@ -1,0 +1,10 @@
+.env
+venv/
+.venv/
+env/
+*.env
+
+__pycache__/
+metadata.json
+output/
+vtr_faiss.index

@@ -1,3 +1,6 @@
+
+python-dotenv
+
 annotated-types==0.7.0
 anyio==4.9.0
 certifi==2025.6.15
@@ -65,3 +68,4 @@ typing-inspection==0.4.1
 typing_extensions==4.14.0
 tzdata==2025.2
 urllib3==2.4.0
+

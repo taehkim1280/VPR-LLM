@@ -17,3 +17,27 @@ To contribure a testcase that you faced, please open a pull request adding the t
 3. VPR log where the error happens
 4. README file explaining the issue and proposing the best solution if you know it
 5. (optional) any extra files used in the vpr command
+
+
+**NOTES**
+
+install dependencies through venv.
+
+windows:
+- `python3 -m venv venv`
+- `.\venv\Scripts\Activate.ps1` for powershell
+- `pip install -r requirements.txt` ignore errors
+- `pip install -r requirementswindows.txt`
+
+- `deactivate`
+
+linux:
+- `python3 -m venv venv`
+- `source .venv/bin/activate`
+- `pip install -r requirements.txt`
+
+- `deactivate`
+
+add token to .env file
+- `API_TOKEN="..."`
+

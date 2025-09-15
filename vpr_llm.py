@@ -575,7 +575,7 @@ class CommandModificationApp:
             print(modified_command)
 
             # Log the experiment
-            log_file_name = os.path.basename(args.log_file_path)
+            log_file_name = args.log_file_path
             #log_file_name = os.path.dirname(args.log_file_path)
             ExperimentLogger.log_experiment(
                 args.csv_file_path, log_file_name, args.provider, args.model_name, args.temperature, args.max_tokens, args.seed, args.error_lines, modified_command, args.mode, args.embedding_model, args.top_k_retrieve
