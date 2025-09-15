@@ -71,7 +71,7 @@ def run_command_and_check_log(directory, command):
     
     # Change to the given directory
     try:
-        print(f"Changing directory to: {directory}")
+        print(f"Changing directory to: {os.path.dirname(directory)}")
         full_directory = os.path.abspath(os.path.join(script_dir, directory))  # Convert relative to absolute
         os.chdir(os.path.dirname(full_directory))
     except FileNotFoundError:
