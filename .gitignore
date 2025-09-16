@@ -8,3 +8,4 @@ __pycache__/
 metadata.json
 output/
 vtr_faiss.index
+vpr_stdout.log
